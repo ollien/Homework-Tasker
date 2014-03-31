@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mysql --user='root' --database='HomeworkDB' --execute="DELETE FROM HomeworkTasker_session WHERE (persist=0) OR (persist=1 AND DATEDIFF(CURRENT_DATE,accessed)>14)"

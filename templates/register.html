@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>HomeworkTasker</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="/static/jquery.cookie.js"></script>
+	<script src="/static/registerPost.js"></script>
+</head>
+<body>
+	<h2>Welcome to Homework Tasker! Login!</h2>
+	<form name='regsiterForm' id='registerForm'>
+		{% csrf_token %}
+		<input id='usernameInput' placeholder="Username"/>
+		<br />
+		<input id='emailInput' placeholder="Email"/>
+		<br />
+		<input id='passwordInput' type="password" placeholder="Password"/>
+		<br />
+		<input type='submit' value='Register'>
+	</form>
+	
+</body>
+</html>
