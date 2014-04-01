@@ -14,11 +14,12 @@ import re
 from models import User
 from models import Session
 
+import userHandling
+import datetime
+
 def loginForm(request):
 	c=RequestContext(request)
 	if request.method=='POST':
-		# user=request.POST.get('username')
-		# password=request.POST.get('password')
 		# query=User.objects.filter(user=user)
 		# result={}
 		# if len(query)==0:
@@ -34,14 +35,33 @@ def loginForm(request):
 		# 		result['result']='invalidCredentials'
 		# elif len(query)>1:
 		# 	result['result']='somethingWentHorriblyWrong'
-		
-		response=HttpResponse(json.dumps(result))
-		response.set_cookie('loggedIn',True,path='/')
+		user=request.POST.get('username')
+		password=request.POST.get('password')
+		persist=True
+		result=userHandling.login(user,password,persist) #Change this from false
+		response=HttpResponse(json.dumps(result['result']))
+		if (result['result']=='OK'):
+			exp=None
+			if persist:
+				exp=datetime.date.today()+datetime.timedelta(14,0)
+			print exp
+			response.set_cookie('sessionId',result['sessionId'],path='/',expires=exp)
 		return response
-def sessionLogin(request):
-	c=RequestContext(request)
-	try:
-		Se
+# def sessionLogin(request):
+#     c=RequestContext(request)
+#     try:
+# 	    query=Session.objects.filter(sessionId=reqeust.POST.get('sessionId'))
+# 	    if len(query)==1:
+# 		    #Redirect
+# 		    print 'redirecting'
+# 		elif len(query)==0:
+# 			#Do Nothing
+# 			print 'nothing'
+# 		elif len(query)>2:
+# 			#Horribly wrong
+# 			print 'something wnet horribly wrong'
+		
+        
 def registerForm(request):
 	c=RequestContext(request)
 	result={}

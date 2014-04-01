@@ -10,4 +10,13 @@ class Session(models.Model):
 	userId=models.ForeignKey(User)
 	persist=models.BooleanField()
 	accessed=models.DateField()
+class Subject(models.Model):
+	userId=models.ForeignKey(User)
+	name=models.TextField()
+class Homework(models.Model):
+	userId=models.ForeignKey(User)
+	label=models.TextField()
+	subject=models.ForeignKey(Subject)
+	priority=models.IntegerField()
+
 	
