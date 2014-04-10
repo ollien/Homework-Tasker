@@ -1,0 +1,44 @@
+h2 {
+	font-family:"Lucida Grande", "Lucida Sans Unicode", Geneva, sans-serif;
+	text-align: center;
+}
+.error {
+	display: inline-block;
+	color:#dd273b;
+	position: absolute;
+	top: 50%;
+	margin-top:-5pt;
+	height:10pt;
+	font-size: 10pt;
+	font-weight:500;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Geneva, sans-serif;
+	visibility: visible;
+	display: none;
+	/* vertical-align: middle; */
+}
+div.input-group{
+	display: block;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Geneva, sans-serif;
+	font-size:10pt;
+	/* width:auto !important; */
+}
+.input-group .form-control{
+	/* width:0 auto !important; */
+}
+div.form-group {
+	display: block;
+	width:400px;
+	/* text-align: center; */
+	margin: 0 auto;
+	
+	
+	/* outline: #000000 dotted thick; */
+}
+#register{
+display: block;
+	text-align: center;
+}
+/* .test{
+	float:left;
+} 
+ */

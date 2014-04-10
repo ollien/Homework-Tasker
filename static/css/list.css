@@ -1,0 +1,46 @@
+.deleteContainer{
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	width:16px;
+	height:16px;
+}
+.deleteContainer > img{
+ position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+    width:16px;
+	height:16px;
+}
+li.assignmentItem{
+	user-select:none;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a {
+	background-image: none;
+	/* background-color: #246CB5; */
+	background-color: #3576be;
+	color: white;
+}
+.dropdown-menu > span> li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+.dropdown-menu > span > li > a:hover,
+.dropdown-menu > span >  li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+.dropdown-menu > span > li > a:hover, .dropdown-menu > span > li > a:focus, .dropdown-submenu:hover > a {
+	background-image: none;
+	/* background-color: #246CB5; */
+	background-color: #3576be;
+	color: white;
+}

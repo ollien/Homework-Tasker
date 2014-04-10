@@ -23,5 +23,7 @@ def login(user,password,persist):
 		return result
 def createSession(user,persist):
 	sessionId=hashlib.sha512(user.user+(uuid.uuid4().hex)).hexdigest()
+	while len(Session.objects.filter(sessionId=sessionId))!=0:
+		sessionId=hashlib.sha512(user.user+(uuid.uuid4().hex)).hexdigest()
 	Session(userId=user,sessionId=sessionId,persist=persist,accessed=datetime.date.today()).save()
 	return {'sessionId':sessionId}

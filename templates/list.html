@@ -1,0 +1,77 @@
+<html>
+<head>
+	<title>HomeworkTasker</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="/static/js/jquery.cookie.js"></script>
+		<!-- jQuery UI -->
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<!-- / jQueryUI -->
+		<script src="/static/js/deleteFade.js"></script>
+		<script src="/static/js/assignmentPost.js"></script>
+		<script src="/static/js/listDropdownFocus.js"></script>
+		<script src="/static/js/listSort.js"></script>
+		<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/list.css">
+</head>
+	<body>
+		<input id="assignmentBox"> </input>
+		 <div class='btn-group' id="subjects">
+			 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="subjectDropDown" chosen='false' currentSubjectId='None'>
+				 Subject <span class="caret"></span>
+				 
+			 </button>
+			<ul class="dropdown-menu" id='subject-list' role="menu">
+				<span id="subjectSpan">
+			{% for item in subjects %}
+				<li class='subjectItem' subjectId="{{item.subjectId}}"><a href="#" onkeydown="if (event.keyCode==13) dropDownSet('{{item.name}}')" onclick="dropDownSet('{{item.name}}','{{item.subjectId}}')">{{item.name}}</a> </li>
+			{% endfor %}
+		</span>
+			{% if subjects %}
+			<li class="divider"></li>
+			{% endif %}
+			<li id="addSubject"><a href="#" data-toggle="dialog" data-target="#myModal">Add a Subject</a></li>
+			</ul>
+			
+		</div>
+			<button id="addButton" class="btn btn-primary">Add</button>
+		
+			
+		{% csrf_token %}
+		<ul id="assignmentList" class="list-group">
+			{% for item in assignments %}
+				<li class="assignmentItem list-group-item" id='assignment{{forloop.counter}}' taskId="{{item.taskId}}">{{item.label}} | {{item.subject.name}} 
+					<span class='deleteContainer'>
+					<img class='delete' id='deleteBlk{{ forloop.counter }}'src='/static/img/delete.png' listening='false'/> 
+					<img class='deleteRed' id='deleteRed{{ forloop.counter }}'src='/static/img/deleteRed.png' visibility="hidden" listening='false'/> 
+					</span>
+				</li>
+			{% endfor %}
+		</ul>
+		
+		
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Subject Name</h4>
+			  </div>
+			  <div class="modal-body">
+				<input class="form-control" id="subjectInput" />
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-danger" id='cancelSubject' data-dismiss="modal">Close</button>
+				<button type="button" id='saveSubject' class="btn btn-success" data-dismiss="modal">Save</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		
+		
+	</body>
+</html>
+		

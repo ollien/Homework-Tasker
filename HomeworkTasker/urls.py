@@ -15,5 +15,7 @@ urlpatterns = patterns('',
     url(r'^register/',views.register),
     url(r'^loginInput/',formIns.loginForm),
     url(r'^registerInput/',formIns.registerForm),
-    
+    url(r'^addSubject/',formIns.addSubject),
+    url(r'^addAssignment/',formIns.addAssignment),
+    url(r'^removeAssignment/',formIns.removeAssignment),    
 )

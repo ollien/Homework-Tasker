@@ -13,8 +13,10 @@ class Session(models.Model):
 class Subject(models.Model):
 	userId=models.ForeignKey(User)
 	name=models.TextField()
+	subjectId=models.TextField()
 class Homework(models.Model):
 	userId=models.ForeignKey(User)
+	taskId=models.TextField()
 	label=models.TextField()
 	subject=models.ForeignKey(Subject)
 	priority=models.IntegerField()

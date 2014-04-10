@@ -1,0 +1,22 @@
+h2 {
+	font-family:"Lucida Grande", "Lucida Sans Unicode", Geneva, sans-serif;
+	text-align: center;
+}
+h4 {
+	font-family:"Lucida Grande", "Lucida Sans Unicode", Geneva, sans-serif;
+	text-align: center;
+}
+span#invalid {
+	color:#dd273b;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Geneva, sans-serif;
+	display:block;
+	text-align: center;
+	margin-bottom: 20px;
+	visibility: hidden;
+}
+form#loginForm {
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Geneva, sans-serif;
+	text-align: center;
+	font-size:10pt;
+}
+
