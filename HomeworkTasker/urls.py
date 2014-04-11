@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^registerInput/',formIns.registerForm),
     url(r'^addSubject/',formIns.addSubject),
     url(r'^addAssignment/',formIns.addAssignment),
-    url(r'^removeAssignment/',formIns.removeAssignment),    
+    url(r'^removeAssignment/',formIns.removeAssignment), 
+    url(r'^sortTasks/',formIns.sortTasks)   
 )

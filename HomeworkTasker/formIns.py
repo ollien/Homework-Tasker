@@ -103,7 +103,7 @@ def registerForm(request):
 					query=User.objects.filter(email=email)
 					if len(query)==0:	
 						try:
-							User(user=user,password=hashedPassword,email=email,salt=salt).save()
+							User(user=user.lower(),password=hashedPassword,email=email.lower(),salt=salt).save()
 							result['result']='OK'
 						except:
 							traceback.print_exc()
@@ -142,27 +142,31 @@ def addAssignment(request):
 	
 	if sessionId!=None:
 		sessionQuery=Session.objects.filter(sessionId=sessionId)
+		subjectId=request.POST.get('subjectId')
 		if len(sessionQuery)==1:
 			try:
 				assignmentPriority=Homework.objects.filter(userId=sessionQuery[0].userId).order_by('priority')[-1]+1
 			except:
 				assignmentPriority=0
-			assignmentSubject=Subject.objects.filter(userId=sessionQuery[0].userId,subjectId=request.POST.get('subjectId'))
-			if len(assignmentSubject)==1:
-				uid=uuid.uuid4().hex
-				while len(Homework.objects.filter(taskId=uid))>0:
+			if subjectId!='None':
+				assignmentSubject=Subject.objects.filter(userId=sessionQuery[0].userId,subjectId=subjectId)
+				if len(assignmentSubject)==1:
 					uid=uuid.uuid4().hex
-				assignment=Homework.objects.create(userId=sessionQuery[0].userId,label=assignmentName, subject=assignmentSubject[0], priority=assignmentPriority,taskId=uid)
-				assignment.save()
-				result['result']='OK'
-				result['assignmentName']=assignment.label
-				result['assignmentSubject']=assignment.subject.name
-				result['assignmentId']=assignment.taskId
+					while len(Homework.objects.filter(taskId=uid))>0:
+						uid=uuid.uuid4().hex
+					assignment=Homework.objects.create(userId=sessionQuery[0].userId,label=assignmentName, subject=assignmentSubject[0], priority=assignmentPriority,taskId=uid)
+					assignment.save()
+					result['result']='OK'
+					result['assignmentName']=assignment.label
+					result['assignmentSubject']=assignment.subject.name
+					result['assignmentId']=assignment.taskId
+				else:
+					print assignmentSubject
+					print sessionId
+					print request.POST.get('subjectId')
+					result['result']="somethingWentHorriblyWrong"	
 			else:
-				print assignmentSubject
-				print sessionId
-				print request.POST.get('subjectId')
-				result['result']="somethingWentHorriblyWrong"	
+				result['result']='noSubject'
 		else:
 			print 'sessionFailed'
 			result['result']="somethingWentHorriblyWrong"
@@ -202,4 +206,27 @@ def addSubject(request):
 	else:
 		result['result']="noUserLoggedIn"
 	return HttpResponse(json.dumps(result))
+def sortTasks(request):
+	c=RequestContext(request)
+	taskIds=request.POST.getlist('taskIds[]')
+	print taskIds
+	sessionId=request.COOKIES.get('sessionId')
+	result={}
+	if sessionId!=None and len(taskIds)>0:
+		sessionQuery=Session.objects.filter(sessionId=sessionId)
+		if len(sessionQuery)==1:
+			assignments=Homework.objects.filter(userId=sessionQuery[0].userId)
+			# assignmentIds=[item.taskId for item in assignemnts]
+			# sortedAssignments=zip(taskIds,assignmentIds)
+			# print sortedAssignments
+			print [item.label for item in list(assignments)]
+			for item in assignments:
+				for task in taskIds:
+					if task==item.taskId:
+						item.priority=taskIds.index(item.taskId)
+						item.save()
+						print item.label
+						print item.priority
+						print list(assignments).index(item)
+		return HttpResponse('None');
 		

@@ -4,6 +4,7 @@ import uuid
 import hashlib
 import datetime
 def login(user,password,persist):
+		user=user.lower()
 		query=User.objects.filter(user=user)
 		result={}
 		if len(query)==0:
