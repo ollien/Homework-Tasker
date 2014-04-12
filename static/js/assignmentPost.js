@@ -9,10 +9,17 @@ $(document).ready(function(){
 			},function(data){
 				data=$.parseJSON(data);
 				if (data['result']==='OK'){
-					$('#assignmentList').append("<li id='assignmentJS"+counter+"' taskId='"+data['assignmentId']+"'>"+data['assignmentName']+" | "+data['assignmentSubject']+" <span class='deleteContainer'><img class='delete' id='deleteBlkJS"+counter+"' src='/static/img/delete.png' listening='false'/> <img class='deleteRed' id='deleteRed"+counter+"'src='/static/img/deleteRed.png' visibility='hidden' listening='false' /> </span> </li>")
+					if ($('button#subjectDropDown').hasClass('error')){
+						$('button#subjectDropDown').removeClass('error');
+					}
+					$('#assignmentList').append("<li class='assignmentItem list-group-item' id='assignmentJS"+counter+"' taskId='"+data['assignmentId']+"'><span class='primary'>"+data['assignmentName']+"</span> <br /> <span class='secondary'> "+data['assignmentSubject']+" </span> <span class='deleteContainer'><img class='delete' id='deleteBlkJS"+counter+"' src='/static/img/delete.png' listening='false'/> <img class='deleteRed' id='deleteRed"+counter+"'src='/static/img/deleteRed.png' visibility='hidden' listening='false' /> </span> </li>")
+					counter++;
 					setupButtons();
 					// $('#assignmentList').append("<img src=/static/img/delete.png />")
 					$('#assignmentBox').val('');
+				}
+				else if (data['result']=='noSubject'){
+					$('button#subjectDropDown').addClass('error');
 				}
 				else{
 					alert(data['result'])
@@ -48,7 +55,7 @@ $(document).ready(function(){
 	// });
 	$('li#addSubject').click(function(){
 		$('#subjectInput').val('');
-		$('#myModal').modal()
+		$('#addSubjectModal').modal()
 	});
 	$('#subjectInput').keydown(function(event){
 		if (event.which==13){
@@ -64,7 +71,9 @@ $(document).ready(function(){
 			}, function(data){
 				data=$.parseJSON(data);
 				if (data['result']=='OK'){
-					$('#subjectSpan').append('<li class="subjectItem" subjectId="'+data['subjectId']+'"><a href="#" onkeydown="if (event.keyCode==13) dropDownSet('+subjectName+')" onclick="dropDownSet(\''+subjectName+'\',\''+$('button#subjectDropDown').attr('currentSubjectId')+'\')">'+subjectName+'</a></li>')
+					$('#subjectSpan').append('<li class="subjectItem" subjectId="'+data['subjectId']+'"><a href="#" onkeydown="if (event.keyCode==13) dropDownSet('+subjectName+','+data['subjectId']+')" onclick="dropDownSet(\''+subjectName+'\',\''+data['subjectId']+'\')">'+subjectName+'</a><span class="delSubjectContainer"><img class="delSubject" id="delSubjectBlkJS'+counter+'" src="/static/img/delete.png" listening="false"/><img class="delSubjectRed" id="delSubjectRedJS'+counter+'" src="/static/img/deleteRed.png" listening="false"></span></li>')
+					counter++;
+					setupSubjectButtons();
 				}
 				else{
 					alert(data['result'])

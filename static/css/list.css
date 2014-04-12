@@ -4,8 +4,18 @@
 	cursor: pointer;
 	width:16px;
 	height:16px;
+	float:right; 
 }
-.deleteContainer > img{
+.delSubjectContainer{
+	position:relative;
+	display: inline-block;
+	cursor: pointer;
+	bottom:20px;
+	width:16px;
+	height:16px; 
+	float:right;
+	}
+.deleteContainer > img, .delSubjectContainer > img{
  position: absolute;
 	top: 0px;
 	left: 0px;
@@ -43,4 +53,39 @@ li.assignmentItem{
 	/* background-color: #246CB5; */
 	background-color: #3576be;
 	color: white;
+}
+span.primary{
+	font-weight: 500;
+}
+span.secondary{
+	font-weight:300;
+	color:#7e7e7e;
+}
+div#list{
+	width:350px;
+	margin: 30px auto;
+}
+div#topInputs{
+	width:800px;
+	margin: 0 auto;
+}
+div#topButtons{
+	width: 99%;
+	margin: 0 auto;
+	text-align: center;
+	/* outline: #000 dotted thick; */
+}
+div#topButtons>button, div#topButtons>div.btn-group{
+	margin:0 auto;
+}
+button#subjectDropDown{
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	width:200px;
+}
+button#subjectDropDown.error{
+	box-shadow: 0 1px 1px #cc0000, 0 0 8px #cc0000;
+	border-color:#cc0000;
+}
+button#addButton{
+	width:250px;
 }

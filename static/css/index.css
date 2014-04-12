@@ -19,4 +19,8 @@ form#loginForm {
 	text-align: center;
 	font-size:10pt;
 }
-
+div.form-group{
+	display:block;
+	width:400px; 
+	margin: 0 auto;
+}

@@ -16,3 +16,8 @@ function dropDownSet(name,uid){
 	$('#subjectDropDown').html(name+' <span class="caret"></span>').attr('currentsubjectid',uid)
 	console.log(name);
 }
+function dropDownReset(uid){
+	if ($('#subjectDropDown').attr('currentsubjectid')==uid){
+		$('#subjectDropDown').html("Subject <span class='caret'></span>").attr('currentsubjectid','None')
+	}
+}

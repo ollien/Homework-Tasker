@@ -28,3 +28,13 @@ def createSession(user,persist):
 		sessionId=hashlib.sha512(user.user+(uuid.uuid4().hex)).hexdigest()
 	Session(userId=user,sessionId=sessionId,persist=persist,accessed=datetime.date.today()).save()
 	return {'sessionId':sessionId}
+	
+def getUserBySession(sessionId):
+	query=Session.objects.filter(sessionId=sessionId)
+	if len(query)==0:
+		return None
+	elif len(query)==1:
+		return query[0].sessionId
+	elif len(query)>1:
+		return -1
+		

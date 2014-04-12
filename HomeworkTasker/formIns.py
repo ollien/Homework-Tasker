@@ -206,6 +206,35 @@ def addSubject(request):
 	else:
 		result['result']="noUserLoggedIn"
 	return HttpResponse(json.dumps(result))
+def removeSubject(request):
+	c=RequestContext(request)
+	subjectId=request.POST.get('subjectId')
+	sessionId=request.COOKIES.get('sessionId')
+	result={}
+	if sessionId!=None:
+		sessionQuery=Session.objects.filter(sessionId=sessionId)
+		if len(sessionQuery)==0:
+			result['result']="noUserLoggedIn"
+		elif len(sessionQuery)==1:
+			userId=sessionQuery[0].userId
+			query=Subject.objects.filter(userId=userId,subjectId=subjectId)
+			if len(query)==0:
+				result['result']='subjectDoesNotExist'
+			elif len(query)==1:
+				assignments=Homework.objects.filter(subject=query[0])
+				result['assignments']=[]
+				for item in assignments:
+					result['assignments'].append(item.taskId)
+					item.delete()
+				query[0].delete()
+				result['result']='OK'
+				
+			elif len(query)>1:
+				result['result']='somethingWentHorriblyWrongToomanyAssignments'
+		elif len(sessionQuery)>1:
+			result['result']='somethingWentHorriblyWrong'
+	return HttpResponse(json.dumps(result))
+	
 def sortTasks(request):
 	c=RequestContext(request)
 	taskIds=request.POST.getlist('taskIds[]')
@@ -228,5 +257,5 @@ def sortTasks(request):
 						print item.label
 						print item.priority
 						print list(assignments).index(item)
-		return HttpResponse('None');
+		return HttpResponse('None')
 		
